@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+    <header class="main-header navbar-light header-sticky header-sticky-smart header-04" th:fragment="header">
+        <div class="sticky-area bg-white">
+            <div class="container container-xxl">
+                <nav class="navbar navbar-expand-xl px-0 d-block">
+                    <div class="d-none d-xl-block">
+                        <div class="d-flex align-items-center flex-nowrap">
+                            <div class="w-50">
+                                <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n5">
+                                    <li aria-haspopup="true" aria-expanded="false"
+                                        class="nav-item dropdown-item-home dropdown py-2 py-xl-7 px-0 px-xl-5">
+                                        <a class="nav-link p-0" href="index.html">
+                                            Home
+                                            <span class="caret"></span>
+                                        </a>
+                                    </li>
+                                    <li aria-haspopup="true" aria-expanded="false"
+                                        class="nav-item dropdown-item-home dropdown py-2 py-xl-7 px-0 px-xl-5">
+                                        <a class="nav-link p-0" href="#">
+                                            User
+                                            <span class="caret"></span>
+                                        </a>
+                                    </li>
+                                    <li aria-haspopup="true" aria-expanded="false"
+                                        class="nav-item dropdown-item-home dropdown py-2 py-xl-7 px-0 px-xl-5">
+                                        <a class="nav-link p-0" href="#">
+                                            Product
+                                            <span class="caret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mx-auto flex-shrink-0 px-10">
+                                <div class="d-flex mt-3 mt-xl-0 align-items-center w-100 justify-content-center">
+                                    <a class="navbar-brand mx-auto d-inline-block py-0" href="index.html">
+                                        <img src="images/logo-black.png" alt="Glowing">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="w-50">
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <ul
+                                        class="navbar-nav flex-row justify-content-xl-end d-flex flex-wrap text-body py-0 navbar-right">
+                                        <li aria-haspopup="true" aria-expanded="false"
+                                            class="nav-item dropdown-item-pages dropdown py-2 py-xl-7 px-0 px-xl-5">
+                                            <a class="nav-link p-0" href="#" data-toggle="dropdown">
+                                                <svg class="icon icon-user-light">
+                                                    <use xlink:href="#icon-user-light"></use>
+                                                </svg>
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu  pt-3 pb-0 pb-xl-3 x-animated x-fadeInUp">
+                                                <li class="dropdown-item">
+                                                    <a class="dropdown-link" href="#">
+                                                        Profile
+                                                    </a>
+                                                </li>
+                                                <li class="dropdown-item">
+                                                    <a class="dropdown-link" href="#">
+                                                        Logout
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                    <input type="text" class="mr-3" style="border-radius: 5px;">
+                                    <a href="#" data-gtf-mfp="true"
+                                        data-mfp-options='{"type":"inline","focus": "#keyword","mainClass": "mfp-search-form mfp-move-from-top mfp-align-top"}'
+                                        class="nav-search d-flex align-items-center pr-3">
+                                        <svg class="icon icon-magnifying-glass-light fs-28">
+                                            <use xlink:href="#icon-magnifying-glass-light"></use>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>
