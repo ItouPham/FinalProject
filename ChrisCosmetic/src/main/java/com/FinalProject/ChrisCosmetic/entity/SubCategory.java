@@ -63,17 +63,22 @@ public class SubCategory {
 		this.products = products;
 	}
 
+	public SubCategory() {
+		super();
+	}
+
+	public SubCategory(String subCategoryName, Category category, List<Product> products) {
+		super();
+		this.subCategoryName = subCategoryName;
+		this.category = category;
+		this.products = products;
+	}
+
 	public SubCategory(String subCategoryName, Category category) {
 		super();
 		this.subCategoryName = subCategoryName;
 		this.category = category;
 	}
 
-	public SubCategory(String subCategoryName) {
-		super();
-		this.subCategoryName = subCategoryName;
-	}
 	
-	
-
 }

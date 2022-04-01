@@ -21054,3 +21054,7 @@ svg.icon {
 }
 .infor-label{
 }
+
+.header-border{
+  border-bottom: 1px solid black !important;
+}

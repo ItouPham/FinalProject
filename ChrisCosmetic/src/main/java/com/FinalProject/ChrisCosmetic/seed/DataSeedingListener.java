@@ -15,7 +15,6 @@ import com.FinalProject.ChrisCosmetic.repository.RoleRepository;
 import com.FinalProject.ChrisCosmetic.repository.SubCategoryRepository;
 
 
-
 @Component
 public class DataSeedingListener implements ApplicationListener<ContextRefreshedEvent> {
 

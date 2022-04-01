@@ -3,14 +3,49 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/admin-layout.html}">
 
-<head>
+<head th:replace="fragments/css-js/css-js::head">
 </head>
 
 <body>
 	<main id="content" layout:fragment="content">
+		<section class="py-2 bg-gray-2">
+			<div class="container">
+				<nav aria-label="breadcrumb">
+					<ol
+						class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center">
+						<li class="breadcrumb-item"><a
+							class="text-decoration-none text-body" th:href="@{/}">Home</a></li>
+						<li class="breadcrumb-item active pl-0 d-flex align-items-center"
+							aria-current="page">User Management</li>
+					</ol>
+				</nav>
+			</div>
+		</section>
 		<section>
 			<div class="container container-xl">
 				<h2 class="text-center mt-9 mb-8">User Management</h2>
+
+				<div class="d-flex mb-5">
+
+					<div class="align-items-center"
+						style="width: 20%; align-self: center;">
+						<a href="#" th:href="@{/admin/account/add}"
+							style="color: rgb(64, 113, 218);"><i
+							class="fa-solid fa-square-plus fa-2xl"></i></a>
+					</div>
+					<div class="d-flex align-items-center justify-content-end"
+						style="width: 80%;">
+						<input type="text" class="mr-3" style="border-radius: 5px;">
+						<a href="#" data-gtf-mfp="true"
+							data-mfp-options='{"type":"inline","focus": "#keyword","mainClass": "mfp-search-form mfp-move-from-top mfp-align-top"}'
+							class="nav-search d-flex align-items-center pr-3"> <svg
+								class="icon icon-magnifying-glass-light fs-28">
+                            <use
+									xlink:href="#icon-magnifying-glass-light"></use>
+                        </svg>
+						</a>
+					</div>
+				</div>
 				<table class="table table-striped table-bordered" cellspacing="0"
 					width="100%">
 					<thead>
@@ -25,50 +60,27 @@
 							<th><strong>Delete</strong></th>
 						</tr>
 					</thead>
-					<tr>
-						<td>1</td>
-						<td>pvcuongkg123@gmail.com</td>
-						<td>Cuong</td>
-						<td>Pham</td>
-						<td>123456789</td>
-						<td>Can Tho</td>
-						<td><a href="update-user.html"> <i
-								class="fa-solid fa-pen-to-square fa-xl"></i>
-						</a></td>
-						<td><a href="#"> <i class="fa-solid fa-trash fa-xl"></i>
-						</a></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>pvcuongkg123@gmail.com</td>
-						<td>Cuong</td>
-						<td>Pham</td>
-						<td>123456789</td>
-						<td>Can Tho</td>
-						<td><a href="update-product.html"> <i
-								class="fa-solid fa-pen-to-square fa-xl"></i>
-						</a></td>
-						<td><a href="#"> <i class="fa-solid fa-trash fa-xl"></i>
-						</a></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>pvcuongkg123@gmail.com</td>
-						<td>Cuong</td>
-						<td>Pham</td>
-						<td>123456789</td>
-						<td>Can Tho</td>
-						<td><a href="update-product.html"> <i
-								class="fa-solid fa-pen-to-square fa-xl"></i>
-						</a></td>
-						<td><a href="#"> <i class="fa-solid fa-trash fa-xl"></i>
-						</a></td>
-					</tr>
+					<tbody>
+						<tr th:each="account, iterStat : ${account}">
+							<th th:text="${iterStat.count}"></th>
+							<td th:text="${account.email}"></td>
+							<td th:text="${account.firstName}"></td>
+							<td th:text="${account.lastName}"></td>
+							<td th:text="${account.telephone}"></td>
+							<td th:text="${account.address}"></td>
+							<td><a href="#"> <i
+									class="fa-solid fa-pen-to-square fa-xl"></i>
+							</a></td>
+							<td><a th:href="@{/admin/account/{id}/delete(id=${account.id})}">
+									<i class="fa-solid fa-trash fa-xl"></i>
+							</a></td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</section>
 	</main>
-
+	<th:block th:replace="fragments/css-js/css-js::js"></th:block>
 </body>
 
 <!-- Mirrored from templates.g5plus.net/glowing/shop-page-02.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 08 Feb 2022 16:36:36 GMT -->

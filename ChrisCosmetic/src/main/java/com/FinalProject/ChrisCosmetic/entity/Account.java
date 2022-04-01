@@ -9,9 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 public class Account {
 
 	@Id
@@ -19,6 +20,7 @@ public class Account {
 	@Column(name = "account_id")
 	private Long id;
 	
+	@Email(message = "Invalid email")
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
 	

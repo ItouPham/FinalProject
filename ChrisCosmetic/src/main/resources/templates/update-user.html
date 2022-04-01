@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/admin-layout.html}">
+
+<head>
+</head>
+
+<body>
+	<main id="content" layout:fragment="content">
+		<section class="py-2 bg-gray-2">
+			<div class="container">
+				<nav aria-label="breadcrumb">
+					<ol
+						class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center">
+						<li class="breadcrumb-item"><a
+							class="text-decoration-none text-body" th:href="@{/}">Home</a></li>
+						<li class="breadcrumb-item active pl-0 d-flex align-items-center"
+							aria-current="page">Update User</li>
+					</ol>
+				</nav>
+			</div>
+		</section>
+		<section>
+            <div class="container container-xl">
+                <h2 class="text-center mt-9 mb-8">Update Information</h2>
+                <div class="infor-group">
+                    <h6 class="col-sm-2 infor-label">Email:</h6>
+                    <p class="col-sm-2 infor-content">pvcuongkg123@gmail.com</p>
+                </div>
+                <div class="infor-group mt-3">
+                    <h6 class="col-sm-2 infor-label">Password:</h6>
+                    <input type="password" class="col-sm-2 infor-content"></input>
+                </div>
+                <div class="infor-group mt-3">
+                    <h6 class="col-sm-2 infor-label">First Name:</h6>
+                    <input type="text" class="col-sm-2 infor-content"></input>
+                </div>
+                <div class="infor-group mt-3">
+                    <h6 class="col-sm-2 infor-label">Last Name:</h6>
+                    <input type="text" class="col-sm-2 infor-content"></input>
+                </div>
+                <div class="infor-group mt-3">
+                    <h6 class="col-sm-2 infor-label">Address:</h6>
+                    <input type="text" class="col-sm-2 infor-content"></input>
+                </div>
+                <div class="infor-group mt-3">
+                    <h6 class="col-sm-2 infor-label">Telephone:</h6>
+                    <input type="text" class="col-sm-2 infor-content"></input>
+                </div>
+                <div class="infor-group mt-10 mb-10">
+                    <button type="button" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </section>
+	</main>
+</body>
+</html>

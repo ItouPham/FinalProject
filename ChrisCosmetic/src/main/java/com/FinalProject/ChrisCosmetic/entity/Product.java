@@ -27,6 +27,9 @@ public class Product {
 	private String productName;
 	
 	@Column
+	private String productImage;	
+	
+	@Column
 	private String productShortDesc;
 	
 	@Column
@@ -67,6 +70,14 @@ public class Product {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public String getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
 	}
 
 	public String getProductShortDesc() {
