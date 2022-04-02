@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.FinalProject.ChrisCosmetic.entity.Account;
 import com.FinalProject.ChrisCosmetic.repository.AccountRepository;
 import com.FinalProject.ChrisCosmetic.service.AccountService;
 
@@ -41,7 +42,7 @@ public class AdminController {
 	
 	@GetMapping("/account/add")
 	public String add(Model model) {
-		model.addAttribute("user", new User());
+		model.addAttribute("account", new Account());
 		return "add-new-user";
 	}
 	
@@ -52,15 +53,14 @@ public class AdminController {
 		return "redirect:/admin/account";
 	}
 	
-//	@PostMapping("/users-list/save")
-//	public String save(@Valid User user, BindingResult result) {
-//		if (result.hasErrors()) {
-//			return "user-management";
-//		}
-//		
-//		userService.save(user);
-//		return "redirect:/contact";
-//		
-//	}
+	@PostMapping("/account/save")
+	public String save(@Valid Account account, BindingResult result) {
+		if (result.hasErrors()) {
+			return "user-management";
+		}
+		accountService.save(account);
+		return "redirect:/admin/account";
+		
+	}
 	
 }

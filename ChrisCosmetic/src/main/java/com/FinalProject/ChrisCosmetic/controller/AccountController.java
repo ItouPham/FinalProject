@@ -3,6 +3,7 @@
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,9 @@ public class AccountController {
 	
 	@PostMapping("/process-register")
 	public String processRegister(Account account) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedPassword = encoder.encode(account.getPassword());
+		account.setPassword(encodedPassword);
 		accountRepository.save(account);
 		return "login";
 	}

@@ -24,30 +24,30 @@
 		<section>
 			<div class="container container-xl">
 				<h2 class="text-center mt-6 mb-6">Add New User</h2>
-				<form action="">
+				<form th:action="@{/admin/account/save}" th:object="${account}" method="post">
 					<div class="infor-group">
 						<h6 class="col-sm-2 infor-label">Email:</h6>
-						<input type="text" class="col-sm-4 infor-content"></input>
+						<input type="email" class="col-sm-4 infor-content" required th:field="*{email}"></input>
 					</div>
 					<div class="infor-group mt-3">
 						<h6 class="col-sm-2 infor-label">Password:</h6>
-						<input type="password" class="col-sm-4 infor-content"></input>
+						<input type="password" class="col-sm-4 infor-content" required th:field="*{password}"></input>
 					</div>
 					<div class="infor-group mt-3">
 						<h6 class="col-sm-2 infor-label">First Name:</h6>
-						<input type="text" class="col-sm-4 infor-content"></input>
+						<input type="text" class="col-sm-4 infor-content" required th:field="*{firstName}"></input>
 					</div>
 					<div class="infor-group mt-3">
 						<h6 class="col-sm-2 infor-label">Last Name:</h6>
-						<input type="text" class="col-sm-4 infor-content"></input>
+						<input type="text" class="col-sm-4 infor-content" required th:field="*{lastName}"></input>
 					</div>
 					<div class="infor-group mt-3">
 						<h6 class="col-sm-2 infor-label">Telephone:</h6>
-						<input type="text" class="col-sm-4 infor-content"></input>
+						<input type="text" class="col-sm-4 infor-content" th:field="*{telephone}"></input>
 					</div>
 					<div class="infor-group mt-3">
 						<h6 class="col-sm-2 infor-label">Address:</h6>
-						<input type="text" class="col-sm-4 infor-content"></input>
+						<input type="text" class="col-sm-4 infor-content" th:field="*{address}"></input>
 					</div>
 					<div class="infor-group mt-8">
 						<button type="submit" class="btn btn-primary">Add</button>
