@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/customer-layout.html}">
-
+	layout:decorate="~{layouts/customer-layout.html}"
+>
 <head>
 </head>
-
 <body>
 	<main id="content" layout:fragment="content">
 		<section class="py-2 bg-gray-2">
 			<div class="container">
 				<nav aria-label="breadcrumb">
 					<ol
-						class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center">
+						class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center"
+					>
 						<li class="breadcrumb-item"><a
-							class="text-decoration-none text-body" th:href="@{/}">Home</a></li>
+							class="text-decoration-none text-body" th:href="@{/}"
+						>Home</a></li>
 						<li class="breadcrumb-item active pl-0 d-flex align-items-center"
-							aria-current="page">Register</li>
+							aria-current="page"
+						>Register</li>
 					</ol>
 				</nav>
 			</div>
@@ -26,32 +28,60 @@
 				<div class="modal-body px-9">
 					<div class="tab-content" id="nav-tabContent">
 						<div class="tab-pane fade show active" id="nav-log-in"
-							role="tabpanel" aria-labelledby="nav-log-in-tab">
+							role="tabpanel" aria-labelledby="nav-log-in-tab"
+						>
 							<h4 class="fs-34 text-center mb-6">Sign Up</h4>
-							<form th:action="@{/process-register}" method="post"
-								th:object="${account}">
-								<input name="first-name" type="text"
-									class="form-control border-0 mb-3" placeholder="First name"
-									required th:field="*{firstName}"> <input
-									name="last-name" type="text" class="form-control border-0 mb-3"
-									placeholder="Last name" required th:field="*{lastName}">
-								<input name="email" type="email"
-									class="form-control border-0 mb-3" placeholder="Your email"
-									required th:field="*{email}"> <input name="password"
-									type="password" class="form-control border-0"
-									placeholder="Password" required th:field="*{password}">
-								<!-- <input name="confirm-password" type="password" class="form-control border-0" placeholder="Confirm Password" required> -->
-								<div class="custom-control custom-checkbox mt-4 mb-5 mr-xl-6">
-									<input name="agree" type="checkbox"
-										class="custom-control-input" id="termsOfUse"> <label
-										class="custom-control-label text-body" for="termsOfUse">
-										Yes, I agree with Grace <a href="#">Privacy Policy</a> and <a
-										href="#">Terms of Use</a>
-									</label>
+							<form th:action="@{/register}" method="post"
+								th:object="${account}"
+							>
+								<div>
+									<input name="first-name" type="text"
+										class="form-control border-0" placeholder="First name"
+										th:field="*{firstName}" th:errorClass="is-invalid"
+									>
+									<div th:if="${#fields.hasErrors('firstName')}"
+										th:errors="*{firstName}" class="invalid-feedback"
+									></div>
+								</div>
+								<div>
+									<input name="last-name" type="text"
+										class="form-control border-0 mt-3" placeholder="Last name"
+										th:field="*{lastName}" th:errorClass="is-invalid"
+									>
+									<div th:if="${#fields.hasErrors('lastName')}"
+										th:errors="*{lastName}" class="invalid-feedback"
+									></div>
+								</div>
+								<div>
+									<input name="email" type="text"
+										class="form-control border-0 mt-3" placeholder="Your email"
+										th:field="*{email}" th:errorClass="is-invalid"
+									>
+									<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+										class="invalid-feedback"
+									></div>
+								</div>
+								<div>
+									<input name="password" type="password"
+										class="form-control border-0 mt-3" placeholder="Password"
+										th:field="*{password}" th:errorClass="is-invalid"
+									>
+									<div th:if="${#fields.hasErrors('password')}"
+										th:errors="*{password}" class="invalid-feedback"
+									></div>
+								</div>
+								<div>
+									<input name="confirm-password" type="password"
+										class="form-control border-0 mt-3" placeholder="Confirm Password"
+										th:field="*{confirmPassword}" th:errorClass="is-invalid"
+									>
+									<div th:if="${#fields.hasErrors('confirmPassword')}"
+										th:errors="*{confirmPassword}" class="invalid-feedback"
+									></div>
 								</div>
 								<button type="submit" value="Login"
-									class="btn btn-secondary btn-block bg-hover-primary border-hover-primary">Sign
-									Up</button>
+									class="btn btn-secondary btn-block bg-hover-primary border-hover-primary"
+								>Sign Up</button>
 								<div class="border-bottom mt-6"></div>
 								<div class="text-center mt-n2 lh-1 mb-4">
 									<span class="fs-14 bg-white lh-1 mt-n2 px-4">or Sign Up
@@ -59,11 +89,11 @@
 								</div>
 								<div class="d-flex">
 									<a href="#"
-										class="btn btn-outline-secondary btn-block border-2x border mr-5 border-hover-secondary"><i
-										class="fab fa-facebook-f mr-2" style="color: #2E58B2"></i>Facebook</a>
+										class="btn btn-outline-secondary btn-block border-2x border mr-5 border-hover-secondary"
+									><i class="fab fa-facebook-f mr-2" style="color: #2E58B2"></i>Facebook</a>
 									<a href="#"
-										class="btn btn-outline-secondary btn-block border-2x border mt-0 border-hover-secondary"><i
-										class="fab fa-google mr-2" style="color: #DD4B39"></i>Google</a>
+										class="btn btn-outline-secondary btn-block border-2x border mt-0 border-hover-secondary"
+									><i class="fab fa-google mr-2" style="color: #DD4B39"></i>Google</a>
 								</div>
 							</form>
 						</div>
@@ -73,5 +103,4 @@
 		</div>
 	</main>
 </body>
-
 </html>

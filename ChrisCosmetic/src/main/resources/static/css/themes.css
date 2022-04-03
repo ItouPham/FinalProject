@@ -21058,3 +21058,8 @@ svg.icon {
 .header-border{
   border-bottom: 1px solid black !important;
 }
+.invalid-feedback {
+   font-size: 14px;
+   font-weight: 600;
+   text-align: left;
+}
