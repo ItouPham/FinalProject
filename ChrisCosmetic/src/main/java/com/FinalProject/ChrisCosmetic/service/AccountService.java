@@ -2,18 +2,21 @@ package com.FinalProject.ChrisCosmetic.service;
 
 import java.util.List;
 
+import com.FinalProject.ChrisCosmetic.dto.AccountDTO;
 import com.FinalProject.ChrisCosmetic.entity.Account;
 
 public interface AccountService {
     List<Account> findAll();
 
-//    Optional<Account> findAccountByEmail(String email);
+    Account findByEmail(String email);
 //
 //    boolean accountExisted(String email);
 
-    Account findById(Long id);
+    AccountDTO findById(Long id);
 
     void save(Account user);
+
+    void save(AccountDTO accountDTO);
 
     void delete(Long id);
 }

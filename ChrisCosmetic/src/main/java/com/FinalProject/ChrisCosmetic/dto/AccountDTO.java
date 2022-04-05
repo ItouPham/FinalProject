@@ -1,53 +1,39 @@
-package com.FinalProject.ChrisCosmetic.entity;
+package com.FinalProject.ChrisCosmetic.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-@Entity
-@Table(name = "accounts")
-public class Account {
+import com.FinalProject.ChrisCosmetic.entity.Role;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_id")
+public class AccountDTO {
+
     private Long id;
 
     @NotBlank(message = "Email can not empty")
     @Email(message = "Invalid email")
-    @Column()
     private String email;
 
     @NotBlank(message = "Password can not empty")
     @Length(min = 6, message = "Password must be at least 6 characters")
-    @Column()
     private String password;
 
+    @NotBlank(message = "Confirm password can not empty")
+    @Length(min = 6, message = "Confirm password must be at least 6 characters")
+    private String confirmPassword;
+
     @NotBlank(message = "First name can not empty")
-    @Column()
     private String firstName;
 
     @NotBlank(message = "Last name can not empty")
-    @Column()
     private String lastName;
 
-    @Column
     private String address;
 
-    @Column(length = 11)
     private String telephone;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
     private Role role;
 
     public Long getId() {
@@ -72,6 +58,14 @@ public class Account {
 
     public void setPassword(String password) {
 	this.password = password;
+    }
+
+    public String getConfirmPassword() {
+	return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+	this.confirmPassword = confirmPassword;
     }
 
     public String getFirstName() {
@@ -114,8 +108,28 @@ public class Account {
 	this.role = role;
     }
 
-    public Account() {
+    public AccountDTO(Long id, String email, String password, String confirmPassword, String firstName,
+                      String lastName, String address, String telephone, Role role) {
 	super();
+	this.id = id;
+	this.email = email;
+	this.password = password;
+	this.confirmPassword = confirmPassword;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.address = address;
+	this.telephone = telephone;
+	this.role = role;
+    }
+
+    public AccountDTO() {
+    }
+
+    @Override
+    public String toString() {
+	return "CreateUpdateAccountDTO [id=" + id + ", email=" + email + ", password=" + password + ", confirmPassword="
+		+ confirmPassword + ", firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
+		+ ", telephone=" + telephone + ", role=" + role + "]";
     }
 
 }
