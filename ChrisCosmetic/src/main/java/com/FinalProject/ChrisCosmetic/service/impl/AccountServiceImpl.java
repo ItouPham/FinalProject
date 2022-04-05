@@ -35,14 +35,4 @@ public class AccountServiceImpl implements AccountService {
 	accountRepository.delete(account);
     }
 
-//    @Override
-//    public Optional<Account> findAccountByEmail(String email) {
-//	return accountRepository.findByEmail(email);
-//    }
-//
-//    @Override
-//    public boolean accountExisted(String email) {
-//	return findAccountByEmail(email).isPresent();
-//    }
-
 }

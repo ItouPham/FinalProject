@@ -72,15 +72,16 @@
 								</div>
 								<div>
 									<input name="confirm-password" type="password"
-										class="form-control border-0 mt-3" placeholder="Confirm Password"
-										th:field="*{confirmPassword}" th:errorClass="is-invalid"
+										class="form-control border-0 mt-3"
+										placeholder="Confirm Password" th:field="*{confirmPassword}"
+										th:errorClass="is-invalid"
 									>
 									<div th:if="${#fields.hasErrors('confirmPassword')}"
 										th:errors="*{confirmPassword}" class="invalid-feedback"
 									></div>
 								</div>
 								<button type="submit" value="Login"
-									class="btn btn-secondary btn-block bg-hover-primary border-hover-primary"
+									class="btn btn-secondary btn-block bg-hover-primary border-hover-primary mt-5"
 								>Sign Up</button>
 								<div class="border-bottom mt-6"></div>
 								<div class="text-center mt-n2 lh-1 mb-4">

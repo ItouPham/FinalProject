@@ -1,58 +1,109 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/admin-layout.html}">
-
+	layout:decorate="~{layouts/admin-layout.html}"
+>
 <head>
 </head>
-
 <body>
 	<main id="content" layout:fragment="content">
 		<section class="py-2 bg-gray-2">
 			<div class="container">
 				<nav aria-label="breadcrumb">
 					<ol
-						class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center">
+						class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center"
+					>
 						<li class="breadcrumb-item"><a
-							class="text-decoration-none text-body" th:href="@{/}">Home</a></li>
+							class="text-decoration-none text-body" th:href="@{/}"
+						>Home</a></li>
 						<li class="breadcrumb-item active pl-0 d-flex align-items-center"
-							aria-current="page">Update User</li>
+							aria-current="page"
+						>Add New User</li>
 					</ol>
 				</nav>
 			</div>
 		</section>
 		<section>
-            <div class="container container-xl">
-                <h2 class="text-center mt-9 mb-8">Update Information</h2>
-                <div class="infor-group">
-                    <h6 class="col-sm-2 infor-label">Email:</h6>
-                    <p class="col-sm-2 infor-content">pvcuongkg123@gmail.com</p>
-                </div>
-                <div class="infor-group mt-3">
-                    <h6 class="col-sm-2 infor-label">Password:</h6>
-                    <input type="password" class="col-sm-2 infor-content"></input>
-                </div>
-                <div class="infor-group mt-3">
-                    <h6 class="col-sm-2 infor-label">First Name:</h6>
-                    <input type="text" class="col-sm-2 infor-content"></input>
-                </div>
-                <div class="infor-group mt-3">
-                    <h6 class="col-sm-2 infor-label">Last Name:</h6>
-                    <input type="text" class="col-sm-2 infor-content"></input>
-                </div>
-                <div class="infor-group mt-3">
-                    <h6 class="col-sm-2 infor-label">Address:</h6>
-                    <input type="text" class="col-sm-2 infor-content"></input>
-                </div>
-                <div class="infor-group mt-3">
-                    <h6 class="col-sm-2 infor-label">Telephone:</h6>
-                    <input type="text" class="col-sm-2 infor-content"></input>
-                </div>
-                <div class="infor-group mt-10 mb-10">
-                    <button type="button" class="btn btn-primary">Update</button>
-                </div>
-            </div>
-        </section>
+			<div class="container container-xl">
+				<h2 class="text-center mt-6 mb-6">Add New User</h2>
+				<form th:action="@{/admin/account/add}" method="post"
+					th:object="${account}" novalidate="novalidate"
+				>
+					<div class="infor-group">
+						<h6 class="col-sm-2">Email:</h6>
+						<div class="col-sm-4 infor-content">
+							<input name="email" type="text" th:field="*{email}"
+								style="width: 100%;" th:errorClass="is-invalid"
+								disabled="disabled"
+							></input>
+							<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								class="invalid-feedback"
+							></div>
+						</div>
+					</div>
+					<div class="infor-group mt-3">
+						<h6 class="col-sm-2">Password:</h6>
+						<div class="col-sm-4 infor-content">
+							<input name="password" type="password" th:field="*{password}"
+								style="width: 100%;" th:errorClass="is-invalid"
+							></input>
+							<div th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}" class="invalid-feedback"
+							></div>
+						</div>
+					</div>
+					<div class="infor-group mt-3">
+						<h6 class="col-sm-2">Confirm Password:</h6>
+						<div class="col-sm-4 infor-content">
+							<input name="confirm-password" type="password"
+								th:field="*{confirmPassword}" style="width: 100%;"
+								th:errorClass="is-invalid"
+							></input>
+							<div th:if="${#fields.hasErrors('confirmPassword')}"
+								th:errors="*{confirmPassword}" class="invalid-feedback"
+							></div>
+						</div>
+					</div>
+					<div class="infor-group mt-3">
+						<h6 class="col-sm-2">First Name:</h6>
+						<div class="col-sm-4 infor-content">
+							<input name="first-name" type="text" th:field="*{firstName}"
+								style="width: 100%;" th:errorClass="is-invalid"
+							></input>
+							<div th:if="${#fields.hasErrors('firstName')}"
+								th:errors="*{firstName}" class="invalid-feedback"
+							></div>
+						</div>
+					</div>
+					<div class="infor-group mt-3">
+						<h6 class="col-sm-2">Last Name:</h6>
+						<div class="col-sm-4 infor-content">
+							<input name="last-name" type="text" th:field="*{lastName}"
+								style="width: 100%;" th:errorClass="is-invalid"
+							></input>
+							<div th:if="${#fields.hasErrors('lastName')}"
+								th:errors="*{lastName}" class="invalid-feedback"
+							></div>
+						</div>
+					</div>
+					<div class="infor-group mt-3">
+						<h6 class="col-sm-2">Telephone:</h6>
+						<div class="col-sm-4 infor-content">
+							<input type="text" style="width: 100%;" th:field="*{telephone}"></input>
+						</div>
+					</div>
+					<div class="infor-group mt-3">
+						<h6 class="col-sm-2">Address:</h6>
+						<div class="col-sm-4 infor-content">
+							<input type="text" style="width: 100%;" th:field="*{address}"></input>
+						</div>
+					</div>
+					<div class="infor-group mt-8">
+						<button type="submit" class="btn btn-primary">Add</button>
+					</div>
+				</form>
+			</div>
+		</section>
 	</main>
 </body>
 </html>
