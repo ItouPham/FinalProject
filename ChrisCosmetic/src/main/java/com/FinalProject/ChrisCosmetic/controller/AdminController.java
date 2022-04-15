@@ -2,7 +2,9 @@ package com.FinalProject.ChrisCosmetic.controller;
 
 import javax.validation.Valid;
 
+import com.FinalProject.ChrisCosmetic.dto.ProductDTO;
 import com.FinalProject.ChrisCosmetic.service.RoleService;
+import com.FinalProject.ChrisCosmetic.service.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +34,9 @@ public class AdminController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private SubCategoryService subCategoryService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -128,4 +133,15 @@ public class AdminController {
         return "redirect:/admin/account";
     }
 
+    @GetMapping("/product")
+    public String productList(){
+        return "product-management";
+    }
+
+    @GetMapping("/product/add")
+    public String viewAddProductPage(Model model){
+        model.addAttribute("product", new ProductDTO());
+        model.addAttribute("categories", subCategoryService.findAllSubCategory());
+        return "add-new-product";
+    }
 }

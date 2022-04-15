@@ -1,4 +1,4 @@
 package com.FinalProject.ChrisCosmetic.dto;
 
-public class CatogoryDTO {
+public class CategoryDTO {
 }
