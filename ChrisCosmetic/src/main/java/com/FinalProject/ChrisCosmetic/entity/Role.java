@@ -3,13 +3,7 @@ package com.FinalProject.ChrisCosmetic.entity;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
@@ -17,13 +11,13 @@ public class Role {
 	@Id
 	@Column(name = "role_id")
 	private String id;
-	
+
 	@Column
 	private String roleName;
-	
-	@OneToMany(mappedBy = "role")
-	private List<Account> accounts;
-	
+
+	@ManyToMany(mappedBy = "roles")
+	private Set<Account> accounts;
+
 	public Role(String id, String roleName) {
 		super();
 		this.id = id;
@@ -46,11 +40,11 @@ public class Role {
 		this.roleName = roleName;
 	}
 
-	public List<Account> getAccounts() {
+	public Set<Account> getAccounts() {
 		return accounts;
 	}
 
-	public void setAccounts(List<Account> accounts) {
+	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
 	}
 
@@ -58,5 +52,4 @@ public class Role {
 		super();
 	}
 
-	
 }

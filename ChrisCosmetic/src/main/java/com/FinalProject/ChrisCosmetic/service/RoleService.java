@@ -1,5 +1,9 @@
 package com.FinalProject.ChrisCosmetic.service;
 
-public interface RoleService {
+import com.FinalProject.ChrisCosmetic.entity.Role;
 
+import java.util.List;
+
+public interface RoleService {
+    List<Role> findAllRole();
 }

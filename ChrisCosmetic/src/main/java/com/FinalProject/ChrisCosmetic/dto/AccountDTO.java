@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 
 import com.FinalProject.ChrisCosmetic.entity.Role;
 
+import java.util.Set;
+
 public class AccountDTO {
 
     private Long id;
@@ -16,12 +18,8 @@ public class AccountDTO {
     @Email(message = "Invalid email")
     private String email;
 
-    @NotBlank(message = "Password can not empty")
-    @Length(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
-    @NotBlank(message = "Confirm password can not empty")
-    @Length(min = 6, message = "Confirm password must be at least 6 characters")
     private String confirmPassword;
 
     @NotBlank(message = "First name can not empty")
@@ -34,7 +32,9 @@ public class AccountDTO {
 
     private String telephone;
 
-    private Role role;
+    private Set<Role> roles;
+
+    private String roleID;
 
     public Long getId() {
 	return id;
@@ -100,26 +100,24 @@ public class AccountDTO {
 	this.telephone = telephone;
     }
 
-    public Role getRole() {
-	return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-	this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    public AccountDTO(Long id, String email, String password, String confirmPassword, String firstName,
-                      String lastName, String address, String telephone, Role role) {
-	super();
-	this.id = id;
-	this.email = email;
-	this.password = password;
-	this.confirmPassword = confirmPassword;
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.address = address;
-	this.telephone = telephone;
-	this.role = role;
+    public AccountDTO(Long id, String email, String password, String confirmPassword, String firstName, String lastName, String address, String telephone, Set<Role> roles) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.telephone = telephone;
+        this.roles = roles;
     }
 
     public AccountDTO() {
@@ -129,7 +127,7 @@ public class AccountDTO {
     public String toString() {
 	return "CreateUpdateAccountDTO [id=" + id + ", email=" + email + ", password=" + password + ", confirmPassword="
 		+ confirmPassword + ", firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
-		+ ", telephone=" + telephone + ", role=" + role + "]";
+		+ ", telephone=" + telephone + ", role=" + roles + "]";
     }
 
 }

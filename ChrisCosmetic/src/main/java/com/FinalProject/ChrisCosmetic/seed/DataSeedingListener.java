@@ -14,19 +14,21 @@ import com.FinalProject.ChrisCosmetic.repository.CategoryRepository;
 import com.FinalProject.ChrisCosmetic.repository.RoleRepository;
 import com.FinalProject.ChrisCosmetic.repository.SubCategoryRepository;
 
+import java.util.UUID;
+
 
 @Component
 public class DataSeedingListener implements ApplicationListener<ContextRefreshedEvent> {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private SubCategoryRepository subCategoryRepository;
 
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private AccountRepository accountRepository;
 
@@ -42,7 +44,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		if(!categoryRepository.findByCategoryName("Body care").isPresent()) {
 			categoryRepository.save(new Category("Body care"));
 		}
-		
+
 		//SubCategory
 		if(!subCategoryRepository.findBySubCategoryName("Face").isPresent()) {
 			subCategoryRepository.save(new SubCategory("Face", categoryRepository.findByCategoryName("Makeup").get()));
@@ -68,7 +70,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		if(!subCategoryRepository.findBySubCategoryName("Hair").isPresent()) {
 			subCategoryRepository.save(new SubCategory("Hair", categoryRepository.findByCategoryName("Body care").get()));
 		}
-		
+
 		//Role
 		if(roleRepository.findByRoleName("ADMIN") == null){
 			roleRepository.save(new Role("1", "ADMIN"));
@@ -79,7 +81,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		if(roleRepository.findByRoleName("CUSTOMER") == null){
 			roleRepository.save(new Role("3", "CUSTOMER"));
 		}
-		
+
 		//Admin account
 //		if(!accountRepository.findByEmail("admin@gmail.com").isPresent()) {
 //			Account admin = new Account();

@@ -22,11 +22,9 @@ public class Category {
 	@Column
 	private String categoryName;
 	
-	
 	@OneToMany(mappedBy = "category")
 	private List<SubCategory> subCategories;
-	
-	
+
 	public Category(String categoryName) {
 		super();
 		this.categoryName = categoryName;
@@ -64,6 +62,5 @@ public class Category {
 	public String toString() {
 		return "Category [id=" + id + ", categoryName=" + categoryName + ", subCategories=" + subCategories + "]";
 	}
-	
 
 }

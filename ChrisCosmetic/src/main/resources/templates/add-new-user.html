@@ -18,8 +18,7 @@
                     >Home</a></li>
                     <li class="breadcrumb-item active pl-0 d-flex align-items-center"
                         aria-current="page">
-                        <th:block th:text="${account.id == null ? 'Add' : 'Update'}"/>
-                        New User
+                        Add New User
                     </li>
                 </ol>
             </nav>
@@ -28,8 +27,7 @@
     <section>
         <div class="container container-xl">
             <h2 class="text-center mt-6 mb-6">
-                <th:block th:text="${account.id == null ? 'Add' : 'Update'}"/>
-                New User
+               Add New User
             </h2>
             <form th:action="@{/admin/account/add}" method="post"
                   th:object="${account}"
@@ -39,7 +37,7 @@
                     <div class="col-sm-4 infor-content">
                         <input name="id" type="hidden" th:field="*{id}"/>
                         <input name="email" type="text" th:field="*{email}"
-                               style="width: 100%;" th:errorClass="is-invalid" th:readonly="${account.id != null}"
+                               style="width: 100%;" th:errorClass="is-invalid"
                         ></input>
                         <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                              class="invalid-feedback"
@@ -54,17 +52,6 @@
                         ></input>
                         <div th:if="${#fields.hasErrors('password')}"
                              th:errors="*{password}" class="invalid-feedback"
-                        ></div>
-                    </div>
-                </div>
-                <div class="infor-group mt-3">
-                    <h6 class="col-sm-2">Confirm Password:</h6>
-                    <div class="col-sm-4 infor-content">
-                        <input name="confirm-password" type="password" th:field="*{confirmPassword}"
-                               style="width: 100%;" th:errorClass="is-invalid"
-                        ></input>
-                        <div th:if="${#fields.hasErrors('confirmPassword')}"
-                             th:errors="*{confirmPassword}" class="invalid-feedback"
                         ></div>
                     </div>
                 </div>
@@ -102,9 +89,18 @@
                         <input type="text" style="width: 100%;" th:field="*{address}"></input>
                     </div>
                 </div>
+<!--                <div class="infor-group mt-3">-->
+<!--                    <h6 class="col-sm-2">Role:</h6>-->
+<!--                    <select class="col-sm-4 infor-content">-->
+<!--                        <option th:each="role : ${roles}" th:value="${role.id}"-->
+<!--                                th:text="${role.roleName}"-->
+<!--                                th:selected="${role.id == account.roleID}"-->
+<!--                                style="width: 100%;">Role</option>-->
+<!--                    </select>-->
+<!--                </div>-->
                 <div class="infor-group mt-8">
                     <button type="submit" value="Login" class="btn btn-primary">
-                        <th:block th:text="${account.id == null ? 'Add' : 'Update'}"/>
+                        Add New Account
                     </button>
                 </div>
             </form>

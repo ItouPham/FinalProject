@@ -39,22 +39,11 @@ public class Product {
 	@JoinColumn(name = "sub_category_id")
 	private SubCategory subCategory;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "product_discount",
-			joinColumns = @JoinColumn(name = "product_id"),
-			inverseJoinColumns = @JoinColumn(name = "discount_id")
-	)
-	private List<Discount> discounts = new ArrayList<>();
-	
 	@Column(name = "price")
 	private int price;
 	
-	@Column(name = "quantily")
-	private int quantily;
-	
-	@Column(name = "slug")
-	private String Slug;
+	@Column(name = "quantity")
+	private int quantity;
 
 	public Long getId() {
 		return id;
@@ -104,14 +93,6 @@ public class Product {
 		this.subCategory = subCategory;
 	}
 
-	public List<Discount> getDiscounts() {
-		return discounts;
-	}
-
-	public void setDiscounts(List<Discount> discounts) {
-		this.discounts = discounts;
-	}
-
 	public int getPrice() {
 		return price;
 	}
@@ -120,20 +101,11 @@ public class Product {
 		this.price = price;
 	}
 
-	public int getQuantily() {
-		return quantily;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQuantily(int quantily) {
-		this.quantily = quantily;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-
-	public String getSlug() {
-		return Slug;
-	}
-
-	public void setSlug(String slug) {
-		Slug = slug;
-	}
-	
 }

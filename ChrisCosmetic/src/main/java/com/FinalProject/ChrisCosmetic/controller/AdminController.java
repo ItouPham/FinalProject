@@ -2,6 +2,7 @@ package com.FinalProject.ChrisCosmetic.controller;
 
 import javax.validation.Valid;
 
+import com.FinalProject.ChrisCosmetic.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +31,9 @@ public class AdminController {
     private AccountService accountService;
 
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @InitBinder
@@ -52,6 +56,7 @@ public class AdminController {
     @GetMapping("/account/add")
     public String add(Model model) {
         model.addAttribute("account", new AccountDTO());
+        model.addAttribute("roles", roleService.findAllRole());
         return "add-new-user";
     }
 
@@ -60,8 +65,16 @@ public class AdminController {
                        BindingResult result, RedirectAttributes redirect) {
         // check if the account existed
         Account accExist = accountService.findByEmail(accountDTO.getEmail());
-        if (accExist != null && !accExist.getId().equals(accountDTO.getId())) {
-            result.addError(new FieldError("account", "email", accountDTO.getEmail(), true, null, null, "Email address already in use"));
+        if (accExist != null) {
+            result.addError(new FieldError("account", "email", "Email address already in use"));
+        }
+
+        if (accountDTO.getPassword() == null || accountDTO.getPassword().length() == 0) {
+            result.addError(
+                    new FieldError("account", "password", "Password can not empty"));
+        } else if (accountDTO.getPassword().length() < 6) {
+            result.addError(
+                    new FieldError("account", "password", "Password must be at least 6 characters"));
         }
 
         // check if password and confirm password not match
@@ -86,7 +99,27 @@ public class AdminController {
     @GetMapping("/account/edit/{id}")
     public String update(@PathVariable("id") Long id, Model model) {
         model.addAttribute("account", accountService.findById(id));
-        return "add-new-user";
+        return "update-user";
+    }
+
+    @PostMapping("/account/edit")
+    public String updateUser(@ModelAttribute("account") AccountDTO accountDTO,
+                             BindingResult result, RedirectAttributes redirect) {
+        if (accountDTO.getPassword() != null) {
+            if (accountDTO.getPassword().length() < 6) {
+                result.addError(
+                        new FieldError("account", "password", "Password must be at least 6 characters"));
+            } else {
+                String encodedPassword = bCryptPasswordEncoder.encode(accountDTO.getPassword());
+                accountDTO.setPassword(encodedPassword);
+            }
+        }
+        if (result.hasErrors()) {
+            return "/update-user";
+        }
+        accountService.save(accountDTO);
+        redirect.addFlashAttribute("successMessage", "Save account successfully");
+        return "redirect:/admin/account";
     }
 
     @GetMapping("/account/delete/{id}")

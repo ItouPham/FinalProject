@@ -21,13 +21,8 @@ public class AccountServiceImpl implements AccountService {
     private AccountMapper accountMapper;
 
     @Override
-    public void save(Account user) {
-        accountRepository.save(user);
-    }
-
-    @Override
     public void save(AccountDTO accountDTO) {
-        save(accountMapper.toEntity(accountDTO));
+        accountRepository.save(accountMapper.toEntity(accountDTO));
     }
 
     @Override

@@ -9,12 +9,8 @@ public interface AccountService {
     List<Account> findAll();
 
     Account findByEmail(String email);
-//
-//    boolean accountExisted(String email);
 
     AccountDTO findById(Long id);
-
-    void save(Account user);
 
     void save(AccountDTO accountDTO);
 

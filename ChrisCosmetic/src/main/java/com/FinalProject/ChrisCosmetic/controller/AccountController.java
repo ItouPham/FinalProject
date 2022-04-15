@@ -3,6 +3,8 @@ package com.FinalProject.ChrisCosmetic.controller;
 import javax.validation.Valid;
 
 import com.FinalProject.ChrisCosmetic.dto.AccountDTO;
+import com.FinalProject.ChrisCosmetic.entity.Role;
+import com.FinalProject.ChrisCosmetic.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,8 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.FinalProject.ChrisCosmetic.entity.Account;
-import com.FinalProject.ChrisCosmetic.repository.AccountRepository;
 import com.FinalProject.ChrisCosmetic.service.AccountService;
+
+import java.util.HashSet;
 
 @Controller
 public class AccountController {
@@ -24,6 +27,8 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -53,18 +58,30 @@ public class AccountController {
             result.addError(new FieldError("account", "email", "Email address already in use"));
         }
 
-        // check if password and confirm password not match
-        if (accountDTO.getPassword() != null && accountDTO.getConfirmPassword() != null) {
-            if (!accountDTO.getPassword().equals(accountDTO.getConfirmPassword())) {
+        if (accountDTO.getPassword() == null || accountDTO.getPassword().length() == 0) {
+            result.addError(
+                    new FieldError("account", "password", "Password can not empty"));
+        } else if (accountDTO.getPassword().length() < 6) {
+            result.addError(
+                    new FieldError("account", "password", "Password must be at least 6 characters"));
+        }
+
+        if (accountDTO.getPassword() != null && accountDTO.getConfirmPassword() != null){
+            if(!accountDTO.getPassword().equals(accountDTO.getConfirmPassword())){
                 result.addError(
-                        new FieldError("account", "confirmPassword", "Password and Confirm password not match"));
+                        new FieldError("account","confirmPassword","Password and Confirm password not match")
+                );
             }
+
         }
 
         if (result.hasErrors()) {
             return "/register";
         }
 
+        HashSet<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByRoleName("CUSTOMER"));
+        accountDTO.setRoles(roles);
         String encodedPassword = bCryptPasswordEncoder.encode(accountDTO.getPassword());
         accountDTO.setPassword(encodedPassword);
         accountService.save(accountDTO);
