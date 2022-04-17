@@ -74,7 +74,7 @@
                 <tr th:each="product, iterStat : ${products}">
                     <td th:text="${iterStat.count}"></td>
                     <td th:text="${product.productName}"></td>
-                    <td>Face</td>
+                    <td th:text="${product.subCategory.subCategoryName}"></td>
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.quantity}"></td>
                     <td><img th:src="@{${product.ProductImagePath}}" border='0' width="50" height="50"></td>
