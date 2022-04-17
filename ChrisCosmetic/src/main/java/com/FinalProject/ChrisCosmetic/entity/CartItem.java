@@ -28,7 +28,7 @@ public class CartItem {
 	private Cart cart;
 	
 	@Column
-	private String cartItemQuantily;
+	private String cartItemQuantity;
 
 	public Long getId() {
 		return id;
@@ -54,11 +54,11 @@ public class CartItem {
 		this.cart = cart;
 	}
 
-	public String getCartItemQuantily() {
-		return cartItemQuantily;
+	public String getCartItemQuantity() {
+		return cartItemQuantity;
 	}
 
-	public void setCartItemQuantily(String cartItemQuantily) {
-		this.cartItemQuantily = cartItemQuantily;
+	public void setCartItemQuantity(String cartItemQuantity) {
+		this.cartItemQuantity = cartItemQuantity;
 	}
 }

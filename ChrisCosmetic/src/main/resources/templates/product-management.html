@@ -14,8 +14,7 @@
                 <ol class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center">
                     <li class="breadcrumb-item"><a class="text-decoration-none text-body" href="index.html">Home</a>
                     </li>
-                    <li class="breadcrumb-item active pl-0 d-flex align-items-center" aria-current="page">Shop Grid
-                        layout
+                    <li class="breadcrumb-item active pl-0 d-flex align-items-center" aria-current="page">Product Management
                     </li>
                 </ol>
             </nav>
@@ -67,72 +66,67 @@
                     <th><strong>Category</strong></th>
                     <th><strong>Price</strong></th>
                     <th><strong>Quantity</strong></th>
-                    <th><strong>Discount</strong></th>
                     <th><strong>Image</strong></th>
                     <th><strong>Edit</strong></th>
                     <th><strong>Delete</strong></th>
                 </tr>
                 </thead>
-                <tr>
-                    <td>1</td>
-                    <td>Kem chong nang ABC</td>
-                    <td>Kem chong nang</td>
-                    <td>$30</td>
-                    <td>20</td>
-                    <td>20%</td>
+                <tr th:each="product, iterStat : ${products}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td th:text="${product.productName}"></td>
+                    <td>Face</td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.quantity}"></td>
                     <td><img src="/images/product-23.jpg" border='0' width="50" height="50"></td>
                     <td>
-                        <a href="update-product.html">
+                        <a th:href="@{/admin/product/edit/{id}(id=${product.id})}">
                             <i class="fa-solid fa-pen-to-square fa-xl"></i>
                         </a>
                     </td>
                     <td>
-                        <a href="#">
+                        <button>
+                        <a th:data-id="${product.id}"
+                           onclick="showConfirmDelete(this.getAttribute('data-id'))">
                             <i class="fa-solid fa-trash fa-xl"></i>
                         </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Kem chong nang ABC</td>
-                    <td>Kem chong nang</td>
-                    <td>$30</td>
-                    <td>20</td>
-                    <td>20%</td>
-                    <td><img src="/images/product-23.jpg" border='0' width="50" height="50"></td>
-                    <td>
-                        <a href="update-product.html">
-                            <i class="fa-solid fa-pen-to-square fa-xl"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#">
-                            <i class="fa-solid fa-trash fa-xl"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Kem chong nang ABC</td>
-                    <td>Kem chong nang</td>
-                    <td>$30</td>
-                    <td>20</td>
-                    <td>20%</td>
-                    <td><img src="/images/product-23.jpg" border='0' width="50" height="50"></td>
-                    <td>
-                        <a href="update-product.html">
-                            <i class="fa-solid fa-pen-to-square fa-xl"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#">
-                            <i class="fa-solid fa-trash fa-xl"></i>
-                        </a>
+                        </button>
                     </td>
                 </tr>
             </table>
         </div>
     </section>
+    <script>
+			function showConfirmDelete(id) {
+				$('#yesOption').attr('href', '/admin/product/delete/' + id);
+				$('#confirmationId').modal('show');
+			}
+
+    </script>
+    <!-- Modal -->
+    <div class="modal fade" id="confirmationId" tabindex="-1"
+         role="dialog" aria-labelledby="modelTitleId" aria-hidden="true"
+    >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">Do you want to delete ?</div>
+                <div class="modal-footer">
+                    <a id="yesOption" type="button" class="btn btn-danger">Confirm</a>
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal"
+                    >Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <th:block th:replace="fragments/css-js/css-js::js"></th:block>
 </body>

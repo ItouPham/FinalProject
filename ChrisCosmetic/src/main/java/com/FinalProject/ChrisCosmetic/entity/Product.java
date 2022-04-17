@@ -1,5 +1,7 @@
 package com.FinalProject.ChrisCosmetic.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@DynamicUpdate
 @Entity
 @Table(name = "product")
 public class Product {
@@ -39,11 +42,12 @@ public class Product {
 	@JoinColumn(name = "sub_category_id")
 	private SubCategory subCategory;
 	
-	@Column(name = "price")
+	@Column
 	private int price;
 	
-	@Column(name = "quantity")
+	@Column
 	private int quantity;
+
 
 	public Long getId() {
 		return id;
@@ -107,5 +111,34 @@ public class Product {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public Product() {
+		super();
+	}
+
+	public Product(Long id, String productName, String productImage, String productShortDesc, String productDetailDesc, SubCategory subCategory, int price, int quantity) {
+		this.id = id;
+		this.productName = productName;
+		this.productImage = productImage;
+		this.productShortDesc = productShortDesc;
+		this.productDetailDesc = productDetailDesc;
+		this.subCategory = subCategory;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
+	@Override
+	public String toString() {
+		return "Product{" +
+				"id=" + id +
+				", productName='" + productName + '\'' +
+				", productImage='" + productImage + '\'' +
+				", productShortDesc='" + productShortDesc + '\'' +
+				", productDetailDesc='" + productDetailDesc + '\'' +
+				", subCategory=" + subCategory +
+				", price=" + price +
+				", quantity=" + quantity +
+				'}';
 	}
 }

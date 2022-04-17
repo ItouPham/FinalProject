@@ -3,6 +3,7 @@ package com.FinalProject.ChrisCosmetic.dto;
 import com.FinalProject.ChrisCosmetic.entity.SubCategory;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 public class ProductDTO {
 
@@ -21,6 +22,16 @@ public class ProductDTO {
     private int price;
 
     private int quantity;
+
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
@@ -90,7 +101,7 @@ public class ProductDTO {
         super();
     }
 
-    public ProductDTO(Long id, String productName, String productImage, String productShortDesc, String productDetailDesc, Long subCategoryID, int price, int quantity) {
+    public ProductDTO(Long id, String productName, String productImage, String productShortDesc, String productDetailDesc, Long subCategoryID, int price, int quantity, String status) {
         this.id = id;
         this.productName = productName;
         this.productImage = productImage;
@@ -112,6 +123,9 @@ public class ProductDTO {
                 ", subCategoryID=" + subCategoryID +
                 ", price=" + price +
                 ", quantity=" + quantity +
+                ", status='" + status + '\'' +
                 '}';
     }
+
+
 }

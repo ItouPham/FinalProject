@@ -32,10 +32,11 @@
             <form th:action="@{/admin/account/add}" method="post"
                   th:object="${account}"
             >
+                <input name="id" type="hidden" th:field="*{id}"/>
                 <div class="infor-group">
                     <h6 class="col-sm-2">Email:</h6>
                     <div class="col-sm-4 infor-content">
-                        <input name="id" type="hidden" th:field="*{id}"/>
+
                         <input name="email" type="text" th:field="*{email}"
                                style="width: 100%;" th:errorClass="is-invalid"
                         ></input>

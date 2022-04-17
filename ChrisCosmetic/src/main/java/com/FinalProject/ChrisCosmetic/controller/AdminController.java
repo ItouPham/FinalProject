@@ -3,8 +3,12 @@ package com.FinalProject.ChrisCosmetic.controller;
 import javax.validation.Valid;
 
 import com.FinalProject.ChrisCosmetic.dto.ProductDTO;
+import com.FinalProject.ChrisCosmetic.entity.Product;
+import com.FinalProject.ChrisCosmetic.entity.SubCategory;
+import com.FinalProject.ChrisCosmetic.service.ProductService;
 import com.FinalProject.ChrisCosmetic.service.RoleService;
 import com.FinalProject.ChrisCosmetic.service.SubCategoryService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +29,8 @@ import com.FinalProject.ChrisCosmetic.dto.AccountDTO;
 import com.FinalProject.ChrisCosmetic.entity.Account;
 import com.FinalProject.ChrisCosmetic.service.AccountService;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -37,6 +43,9 @@ public class AdminController {
 
     @Autowired
     private SubCategoryService subCategoryService;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -134,14 +143,67 @@ public class AdminController {
     }
 
     @GetMapping("/product")
-    public String productList(){
+    public String productList(Model model) {
+        model.addAttribute("products", productService.findAllProduct());
         return "product-management";
     }
 
     @GetMapping("/product/add")
-    public String viewAddProductPage(Model model){
+    public String viewAddProductPage(Model model) {
         model.addAttribute("product", new ProductDTO());
         model.addAttribute("categories", subCategoryService.findAllSubCategory());
         return "add-new-product";
+    }
+
+    @PostMapping("/product/add")
+    public String processAddNewProduct(@ModelAttribute("product") ProductDTO productDTO,
+                                       RedirectAttributes redirect) {
+        Product entity = new Product();
+        BeanUtils.copyProperties(productDTO, entity);
+
+        SubCategory subCategory = new SubCategory();
+        subCategory.setId(productDTO.getSubCategoryID());
+        entity.setSubCategory(subCategory);
+
+        productService.save(entity);
+        redirect.addFlashAttribute("successMessage", "Add product successfully");
+        return "redirect:/admin/product";
+    }
+
+    @GetMapping("/product/edit/{id}")
+    public String updateProduct(@PathVariable("id") Long id, Model model) {
+        Optional<Product> opt = productService.findById(id);
+        ProductDTO productDTO = new ProductDTO();
+        model.addAttribute("categories", subCategoryService.findAllSubCategory());
+        if (opt.isPresent()) {
+            Product entity = opt.get();
+            BeanUtils.copyProperties(entity, productDTO);
+            productDTO.setSubCategoryID(entity.getSubCategory().getId());
+            model.addAttribute("product", productDTO);
+            return "update-product";
+        }
+        model.addAttribute("message", "Product is not existed");
+        return "redirect:/admin/product";
+    }
+
+    @PostMapping("/product/edit")
+    public String processUpdateProduct(@ModelAttribute("product") ProductDTO productDTO,
+                                       RedirectAttributes redirect) {
+        Product entity = new Product();
+        BeanUtils.copyProperties(productDTO, entity);
+
+        SubCategory subCategory = new SubCategory();
+        subCategory.setId(productDTO.getSubCategoryID());
+        entity.setSubCategory(subCategory);
+
+        productService.save(entity);
+        redirect.addFlashAttribute("successMessage", "Save product successfully");
+        return "redirect:/admin/product";
+    }
+
+    @GetMapping("/product/delete/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productService.delete(id);
+        return "redirect:/admin/product";
     }
 }
