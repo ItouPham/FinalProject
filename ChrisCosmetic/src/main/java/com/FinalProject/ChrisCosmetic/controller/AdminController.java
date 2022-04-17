@@ -14,21 +14,24 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.FinalProject.ChrisCosmetic.dto.AccountDTO;
 import com.FinalProject.ChrisCosmetic.entity.Account;
 import com.FinalProject.ChrisCosmetic.service.AccountService;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 @Controller
@@ -157,7 +160,12 @@ public class AdminController {
 
     @PostMapping("/product/add")
     public String processAddNewProduct(@ModelAttribute("product") ProductDTO productDTO,
-                                       RedirectAttributes redirect) {
+                                       RedirectAttributes redirect,
+                                       @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        productDTO.setProductImage(fileName);
+
         Product entity = new Product();
         BeanUtils.copyProperties(productDTO, entity);
 
@@ -166,6 +174,21 @@ public class AdminController {
         entity.setSubCategory(subCategory);
 
         productService.save(entity);
+
+        String uploadDir = "./product-images/" + entity.getId();
+
+        Path uploadPath = Paths.get(uploadDir);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e){
+            throw new IOException("Could not save uploaded file: " + fileName);
+        }
         redirect.addFlashAttribute("successMessage", "Add product successfully");
         return "redirect:/admin/product";
     }
