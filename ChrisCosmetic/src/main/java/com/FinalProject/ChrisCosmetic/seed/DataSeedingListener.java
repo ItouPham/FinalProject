@@ -15,6 +15,7 @@ import com.FinalProject.ChrisCosmetic.repository.CategoryRepository;
 import com.FinalProject.ChrisCosmetic.repository.RoleRepository;
 import com.FinalProject.ChrisCosmetic.repository.SubCategoryRepository;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 
@@ -54,11 +55,11 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		if(!categoryRepository.findByCategoryName("Mask").isPresent()) {
 			categoryRepository.save(new Category("Mask"));
 		}
-		if(!categoryRepository.findByCategoryName("Skin body").isPresent()) {
-			categoryRepository.save(new Category("Skin body"));
-		}
 		if(!categoryRepository.findByCategoryName("Skin").isPresent()) {
 			categoryRepository.save(new Category("Skin"));
+		}
+		if(!categoryRepository.findByCategoryName("Skin body").isPresent()) {
+			categoryRepository.save(new Category("Skin body"));
 		}
 		if(!categoryRepository.findByCategoryName("Hair").isPresent()) {
 			categoryRepository.save(new Category("Hair"));
@@ -76,9 +77,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		}
 		if(!subCategoryRepository.findBySubCategoryName("Blusher").isPresent()) {
 			subCategoryRepository.save(new SubCategory("Blusher", categoryRepository.findByCategoryName("Face").get()));
-		}
-		if(!subCategoryRepository.findBySubCategoryName("Cleanser").isPresent()) {
-			subCategoryRepository.save(new SubCategory("Cleanser", categoryRepository.findByCategoryName("Face").get()));
 		}
 		if(!subCategoryRepository.findBySubCategoryName("Lip Balm").isPresent()) {
 			subCategoryRepository.save(new SubCategory("Lip Balm", categoryRepository.findByCategoryName("Lips").get()));
@@ -158,20 +156,64 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 		//Role
 		if(roleRepository.findByRoleName("ADMIN") == null){
-			roleRepository.save(new Role("1", "ADMIN"));
+			roleRepository.save(new Role(UUID.randomUUID().toString(), "ADMIN"));
 		}
 		if(roleRepository.findByRoleName("EMPLOYEE") == null){
-			roleRepository.save(new Role("2", "EMPLOYEE"));
+			roleRepository.save(new Role(UUID.randomUUID().toString(), "EMPLOYEE"));
 		}
 		if(roleRepository.findByRoleName("CUSTOMER") == null){
-			roleRepository.save(new Role("3", "CUSTOMER"));
+			roleRepository.save(new Role(UUID.randomUUID().toString(), "CUSTOMER"));
 		}
 
 		//Admin account
-//		if(!accountRepository.findByEmail("admin@gmail.com").isPresent()) {
-//			Account admin = new Account();
-//			admin.setEmail("admin@gmail.com");
-//			String encodedPassword = bCryptPasswordEncoder.encode(admin.getPassword());
-//		}
+		if(!accountRepository.findByEmail("admin@gmail.com").isPresent()) {
+			Account admin = new Account();
+			admin.setId(UUID.randomUUID().toString());
+			admin.setEmail("admin@gmail.com");
+			String encodedPassword = bCryptPasswordEncoder.encode("123456");
+			admin.setPassword(encodedPassword);
+			HashSet<Role> roles = new HashSet<>();
+			roles.add(roleRepository.findByRoleName("ADMIN"));
+			admin.setRoles(roles);
+			admin.setAddress("Can Tho");
+			admin.setFirstName("Cuong");
+			admin.setLastName("Pham");
+			admin.setTelephone("123456789");
+			accountRepository.save(admin);
+		}
+
+		//Employee account
+		if(!accountRepository.findByEmail("employee@gmail.com").isPresent()) {
+			Account admin = new Account();
+			admin.setId(UUID.randomUUID().toString());
+			admin.setEmail("employee@gmail.com");
+			String encodedPassword = bCryptPasswordEncoder.encode("123456");
+			admin.setPassword(encodedPassword);
+			HashSet<Role> roles = new HashSet<>();
+			roles.add(roleRepository.findByRoleName("EMPLOYEE"));
+			admin.setRoles(roles);
+			admin.setAddress("Can Tho");
+			admin.setFirstName("Cuong");
+			admin.setLastName("Pham");
+			admin.setTelephone("123456789");
+			accountRepository.save(admin);
+		}
+
+		//Customer account
+		if(!accountRepository.findByEmail("customer@gmail.com").isPresent()) {
+			Account admin = new Account();
+			admin.setId(UUID.randomUUID().toString());
+			admin.setEmail("customer@gmail.com");
+			String encodedPassword = bCryptPasswordEncoder.encode("123456");
+			admin.setPassword(encodedPassword);
+			HashSet<Role> roles = new HashSet<>();
+			roles.add(roleRepository.findByRoleName("CUSTOMER"));
+			admin.setRoles(roles);
+			admin.setAddress("Can Tho");
+			admin.setFirstName("Cuong");
+			admin.setLastName("Pham");
+			admin.setTelephone("123456789");
+			accountRepository.save(admin);
+		}
 	}
 }

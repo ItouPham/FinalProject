@@ -13,7 +13,7 @@ import java.util.Optional;
 @Transactional
 public interface AccountRepository extends JpaRepository<Account, Long> {
     @Query("SELECT a FROM Account a WHERE a.email = ?1")
-    Account findByEmail(String email);
+    Account findAccountByEmail(String email);
 
-//    Optional<Account> findByAccountEmail(String email);
+    Optional<Account> findByEmail(String email);
 }
