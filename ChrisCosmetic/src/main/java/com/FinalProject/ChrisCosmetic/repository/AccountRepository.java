@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, String> {
     @Query("SELECT a FROM Account a WHERE a.email = ?1")
     Account findAccountByEmail(String email);
 

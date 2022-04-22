@@ -10,9 +10,11 @@ public interface AccountService {
 
     Account findByEmail(String email);
 
-    AccountDTO findById(Long id);
+    AccountDTO findById(String id);
 
     void save(AccountDTO accountDTO);
 
-    void delete(Long id);
+    void delete(String id);
+
+    public Account login(String email, String password);
 }

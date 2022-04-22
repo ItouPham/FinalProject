@@ -5,6 +5,7 @@ import java.util.List;
 import com.FinalProject.ChrisCosmetic.dto.AccountDTO;
 import com.FinalProject.ChrisCosmetic.service.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.FinalProject.ChrisCosmetic.entity.Account;
@@ -20,6 +21,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountMapper accountMapper;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public void save(AccountDTO accountDTO) {
         accountRepository.save(accountMapper.toEntity(accountDTO));
@@ -31,15 +35,20 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO findById(Long id) {
+    public AccountDTO findById(String id) {
         return accountRepository.findById(id).map(accountMapper::toDTO)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         Account account = accountRepository.findById(id).get();
         accountRepository.delete(account);
+    }
+
+    @Override
+    public Account login(String email, String password) {
+        return null;
     }
 
     @Override

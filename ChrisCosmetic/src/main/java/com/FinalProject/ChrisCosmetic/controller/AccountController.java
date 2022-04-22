@@ -20,6 +20,7 @@ import com.FinalProject.ChrisCosmetic.entity.Account;
 import com.FinalProject.ChrisCosmetic.service.AccountService;
 
 import java.util.HashSet;
+import java.util.UUID;
 
 @Controller
 public class AccountController {
@@ -38,10 +39,6 @@ public class AccountController {
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 
     @GetMapping("/register")
     public String signup(Model model) {
@@ -82,6 +79,7 @@ public class AccountController {
         HashSet<Role> roles = new HashSet<>();
         roles.add(roleRepository.findByRoleName("CUSTOMER"));
         accountDTO.setRoles(roles);
+        accountDTO.setId(UUID.randomUUID().toString());
         String encodedPassword = bCryptPasswordEncoder.encode(accountDTO.getPassword());
         accountDTO.setPassword(encodedPassword);
         accountService.save(accountDTO);
@@ -90,8 +88,4 @@ public class AccountController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/test")
-    public String test() {
-        return "test";
-    }
 }

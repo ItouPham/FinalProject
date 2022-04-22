@@ -33,6 +33,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -106,6 +107,7 @@ public class AdminController {
             return "/add-new-user";
         }
 
+        accountDTO.setId(UUID.randomUUID().toString());
         String encodedPassword = bCryptPasswordEncoder.encode(accountDTO.getPassword());
         accountDTO.setPassword(encodedPassword);
         accountService.save(accountDTO);
@@ -114,7 +116,7 @@ public class AdminController {
     }
 
     @GetMapping("/account/edit/{id}")
-    public String update(@PathVariable("id") Long id, Model model) {
+    public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("account", accountService.findById(id));
         return "update-user";
     }
@@ -140,7 +142,7 @@ public class AdminController {
     }
 
     @GetMapping("/account/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable String id) {
         accountService.delete(id);
         return "redirect:/admin/account";
     }
@@ -211,7 +213,11 @@ public class AdminController {
 
     @PostMapping("/product/edit")
     public String processUpdateProduct(@ModelAttribute("product") ProductDTO productDTO,
-                                       RedirectAttributes redirect) {
+                                       RedirectAttributes redirect,
+                                       @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        productDTO.setProductImage(fileName);
+
         Product entity = new Product();
         BeanUtils.copyProperties(productDTO, entity);
 
@@ -220,7 +226,22 @@ public class AdminController {
         entity.setSubCategory(subCategory);
 
         productService.save(entity);
-        redirect.addFlashAttribute("successMessage", "Save product successfully");
+
+        String uploadDir = "./product-images/" + entity.getId();
+
+        Path uploadPath = Paths.get(uploadDir);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e){
+            throw new IOException("Could not save uploaded file: " + fileName);
+        }
+        redirect.addFlashAttribute("successMessage", "Update product successfully");
         return "redirect:/admin/product";
     }
 

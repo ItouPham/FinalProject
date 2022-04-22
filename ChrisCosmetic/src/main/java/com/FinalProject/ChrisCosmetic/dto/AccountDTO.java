@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class AccountDTO {
 
-    private Long id;
+    private String id;
 
     @NotBlank(message = "Email can not empty")
     @Email(message = "Invalid email")
@@ -36,11 +36,11 @@ public class AccountDTO {
 
     private String roleID;
 
-    public Long getId() {
+    public String getId() {
 	return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
 	this.id = id;
     }
 
@@ -108,7 +108,7 @@ public class AccountDTO {
         this.roles = roles;
     }
 
-    public AccountDTO(Long id, String email, String password, String confirmPassword, String firstName, String lastName, String address, String telephone, Set<Role> roles) {
+    public AccountDTO(String id, String email, String password, String confirmPassword, String firstName, String lastName, String address, String telephone, Set<Role> roles) {
         this.id = id;
         this.email = email;
         this.password = password;
