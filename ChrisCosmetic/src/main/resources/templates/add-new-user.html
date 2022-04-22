@@ -90,15 +90,14 @@
                         <input type="text" style="width: 100%;" th:field="*{address}"></input>
                     </div>
                 </div>
-<!--                <div class="infor-group mt-3">-->
-<!--                    <h6 class="col-sm-2">Role:</h6>-->
-<!--                    <select class="col-sm-4 infor-content">-->
-<!--                        <option th:each="role : ${roles}" th:value="${role.id}"-->
-<!--                                th:text="${role.roleName}"-->
-<!--                                th:selected="${role.id == account.roleID}"-->
-<!--                                style="width: 100%;">Role</option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                <div class="infor-group mt-3">
+                    <h6 class="col-sm-2">Role:</h6>
+                    <select class="col-sm-4 infor-content" th:field="*{roleID}">
+                        <option value="1">Admin</option>
+                        <option value="2">Employee</option>
+                        <option value="3">Customer</option>
+                    </select>
+                </div>
                 <div class="infor-group mt-8">
                     <button type="submit" value="Login" class="btn btn-primary">
                         Add New Account

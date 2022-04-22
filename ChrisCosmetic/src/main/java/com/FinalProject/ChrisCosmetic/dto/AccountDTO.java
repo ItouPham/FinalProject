@@ -130,4 +130,11 @@ public class AccountDTO {
 		+ ", telephone=" + telephone + ", role=" + roles + "]";
     }
 
+    public String getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(String roleID) {
+        this.roleID = roleID;
+    }
 }

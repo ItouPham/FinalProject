@@ -31,7 +31,7 @@
 							role="tabpanel" aria-labelledby="nav-log-in-tab"
 						>
 							<h4 class="fs-34 text-center mb-6">Sign In</h4>
-							<form>
+							<form th:action="@{/login}" method="post">
 								<div th:if="${successMessage}"
 									class="col-12 alert alert-success alert-dismissible fade show"
 									role="alert"

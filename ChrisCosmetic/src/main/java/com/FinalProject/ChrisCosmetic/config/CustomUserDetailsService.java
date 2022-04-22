@@ -10,7 +10,6 @@ import com.FinalProject.ChrisCosmetic.repository.AccountRepository;
 import com.FinalProject.ChrisCosmetic.service.AccountService;
 
 public class CustomUserDetailsService implements UserDetailsService {
-
     @Autowired
     private AccountRepository accountRepository;
 

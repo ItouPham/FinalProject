@@ -4,6 +4,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @DynamicUpdate

@@ -4,7 +4,9 @@ import javax.validation.Valid;
 
 import com.FinalProject.ChrisCosmetic.dto.ProductDTO;
 import com.FinalProject.ChrisCosmetic.entity.Product;
+import com.FinalProject.ChrisCosmetic.entity.Role;
 import com.FinalProject.ChrisCosmetic.entity.SubCategory;
+import com.FinalProject.ChrisCosmetic.repository.RoleRepository;
 import com.FinalProject.ChrisCosmetic.service.ProductService;
 import com.FinalProject.ChrisCosmetic.service.RoleService;
 import com.FinalProject.ChrisCosmetic.service.SubCategoryService;
@@ -32,12 +34,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private AccountService accountService;
@@ -107,6 +113,18 @@ public class AdminController {
             return "/add-new-user";
         }
 
+        HashSet<Role> roles = new HashSet<>();
+        if (accountDTO.getRoleID().equals("1")) {
+            roles.add(roleService.findRoleByRoleName("ADMIN"));
+            accountDTO.setRoles(roles);
+        } else if (accountDTO.getRoleID().equals("2")){
+            roles.add(roleService.findRoleByRoleName("EMPLOYEE"));
+            accountDTO.setRoles(roles);
+        } else {
+            roles.add(roleService.findRoleByRoleName("CUSTOMER"));
+            accountDTO.setRoles(roles);
+        }
+
         accountDTO.setId(UUID.randomUUID().toString());
         String encodedPassword = bCryptPasswordEncoder.encode(accountDTO.getPassword());
         accountDTO.setPassword(encodedPassword);
@@ -124,6 +142,7 @@ public class AdminController {
     @PostMapping("/account/edit")
     public String updateUser(@ModelAttribute("account") AccountDTO accountDTO,
                              BindingResult result, RedirectAttributes redirect) {
+
         if (accountDTO.getPassword() != null) {
             if (accountDTO.getPassword().length() < 6) {
                 result.addError(
@@ -136,6 +155,19 @@ public class AdminController {
         if (result.hasErrors()) {
             return "/update-user";
         }
+
+        HashSet<Role> roles = new HashSet<>();
+        if (accountDTO.getRoleID().equals("1")) {
+            roles.add(roleService.findRoleByRoleName("ADMIN"));
+            accountDTO.setRoles(roles);
+        } else if (accountDTO.getRoleID().equals("2")){
+            roles.add(roleService.findRoleByRoleName("EMPLOYEE"));
+            accountDTO.setRoles(roles);
+        } else {
+            roles.add(roleService.findRoleByRoleName("CUSTOMER"));
+            accountDTO.setRoles(roles);
+        }
+
         accountService.save(accountDTO);
         redirect.addFlashAttribute("successMessage", "Save account successfully");
         return "redirect:/admin/account";

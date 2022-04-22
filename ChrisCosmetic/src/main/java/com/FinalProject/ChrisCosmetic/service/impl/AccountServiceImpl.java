@@ -1,6 +1,7 @@
 package com.FinalProject.ChrisCosmetic.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.FinalProject.ChrisCosmetic.dto.AccountDTO;
 import com.FinalProject.ChrisCosmetic.service.mapper.AccountMapper;
@@ -48,6 +49,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account login(String email, String password) {
+        Optional<Account> optExist = accountRepository.findByEmail(email);
+
+        if(optExist.isPresent() && bCryptPasswordEncoder.matches(password,optExist.get().getPassword())){
+            optExist.get().setPassword("");
+            return optExist.get();
+        }
         return null;
     }
 

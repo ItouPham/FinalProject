@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.FinalProject.ChrisCosmetic.dto.AccountDTO;
 import com.FinalProject.ChrisCosmetic.entity.Role;
 import com.FinalProject.ChrisCosmetic.repository.RoleRepository;
+import com.FinalProject.ChrisCosmetic.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +31,10 @@ public class AccountController {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private RoleService roleService;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -77,7 +82,7 @@ public class AccountController {
         }
 
         HashSet<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByRoleName("CUSTOMER"));
+        roles.add(roleService.findRoleByRoleName("CUSTOMER"));
         accountDTO.setRoles(roles);
         accountDTO.setId(UUID.randomUUID().toString());
         String encodedPassword = bCryptPasswordEncoder.encode(accountDTO.getPassword());
