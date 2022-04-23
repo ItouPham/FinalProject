@@ -13,6 +13,7 @@ import com.FinalProject.ChrisCosmetic.service.SubCategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -179,9 +181,22 @@ public class AdminController {
         return "redirect:/admin/account";
     }
 
-    @GetMapping("/product")
+    @RequestMapping("/product")
     public String productList(Model model) {
-        model.addAttribute("products", productService.findAllProduct());
+        return listProductByPage(model, 1);
+    }
+
+    @GetMapping("/product/page/{pageNumber}")
+            public String listProductByPage(Model model, @PathVariable("pageNumber") int currentPage){
+        Page<Product> page = productService.findAllProduct(currentPage);
+        long totalItems = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+        List<Product> listProducts = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("products", listProducts);
         return "product-management";
     }
 

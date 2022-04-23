@@ -7,6 +7,9 @@ import com.FinalProject.ChrisCosmetic.repository.ProductRepository;
 import com.FinalProject.ChrisCosmetic.service.ProductService;
 import com.FinalProject.ChrisCosmetic.service.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +30,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllProduct() {
-        return productRepository.findAll();
+    public Page<Product> findAllProduct(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1,10);
+        return productRepository.findAll(pageable);
     }
 
     @Override

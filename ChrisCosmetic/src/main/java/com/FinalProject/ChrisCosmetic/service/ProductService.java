@@ -2,6 +2,7 @@ package com.FinalProject.ChrisCosmetic.service;
 
 import com.FinalProject.ChrisCosmetic.dto.ProductDTO;
 import com.FinalProject.ChrisCosmetic.entity.Product;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +10,7 @@ import java.util.Optional;
 public interface ProductService {
     Optional<Product> findById(Long id);
 
-    List<Product> findAllProduct();
+    Page<Product> findAllProduct(int pageNumber);
 
     List<Product> findProductBySubCategoryID(Long id);
 
