@@ -34,7 +34,7 @@ public class Account {
     @Column(length = 11)
     private String telephone;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinTable(
             name = "accounts_roles",
             joinColumns = {@JoinColumn(name="account_id")},

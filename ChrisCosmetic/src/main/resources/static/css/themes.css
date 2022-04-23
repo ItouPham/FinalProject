@@ -21061,3 +21061,8 @@ svg.icon {
    font-weight: 600;
    text-align: left;
 }
+
+.logoutBtn{
+  border: 0;
+  background-color: white;
+}

@@ -43,12 +43,13 @@
 								<div class="d-flex align-items-center justify-content-end">
 									<ul
 										class="navbar-nav flex-row justify-content-xl-end d-flex flex-wrap text-body py-0 navbar-right">
-										<li aria-haspopup="true" aria-expanded="false"
+										<form th:action="@{/logout}" method="post"
+											  aria-haspopup="true" aria-expanded="false"
 											class="nav-item dropdown-item-home dropdown py-2 py-xl-7 px-0 px-xl-5">
-											<a class="nav-link p-0" th:href="@{/logout}"> Logout <span
+											<button type="submit" value="Sign Out" class="nav-link p-0 logoutBtn"> Logout <span
 												class="caret"></span>
-										</a>
-										</li>
+										</button>
+										</form>
 									</ul>
 								</div>
 							</div>

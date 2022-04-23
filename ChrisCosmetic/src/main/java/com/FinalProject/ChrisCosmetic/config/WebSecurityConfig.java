@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/admin/**").authenticated()
+			.antMatchers("/admin/**").hasAuthority("ADMIN")
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()
@@ -54,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("email")
 				.permitAll()
 			.and()
-			.logout().logoutSuccessUrl("/").permitAll();
+			.logout().logoutSuccessUrl("/").permitAll()
+			.and().exceptionHandling().accessDeniedPage("/403");
 	}
 	
 	
